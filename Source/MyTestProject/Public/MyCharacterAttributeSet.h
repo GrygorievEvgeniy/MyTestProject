@@ -7,8 +7,6 @@
 #include "AttributeSet.h"
 #include "MyCharacterAttributeSet.generated.h"
 
-
-
 #define ATTRIBUTE_ACCESSOR_FUNCTION(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
@@ -44,6 +42,7 @@ public:
 
 protected:
 
-	void PostGameplayEffectExecute(const FGameplayEffectModCallbackData &Data) override;
-	
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData &Data) override;
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	virtual void ClampAttributeOnChange(FGameplayAttribute Attribute, float& NewValue) const;
 };

@@ -26,3 +26,17 @@ void UMyCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMo
 		SetStamina(FMath::Clamp(GetStamina(), 0.0f, GetMaxStamina()));
 	}
 }
+void UMyCharacterAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
+{
+	Super::PreAttributeChange(Attribute, NewValue);
+	ClampAttributeOnChange(Attribute,NewValue);
+}
+void UMyCharacterAttributeSet::ClampAttributeOnChange(FGameplayAttribute Attribute, float& NewValue) const
+{
+	if (Attribute == GetHealthAttribute())
+	{
+		NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxHealth());
+	}
+	
+}
+
